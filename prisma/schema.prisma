@@ -1,0 +1,298 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // SQLite is kept for local V1 operations. For production, switch this
+  // provider to postgresql and point DATABASE_URL to the managed instance.
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model VoucherRequest {
+  id                 String        @id @default(cuid())
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  status             RequestStatus
+  decisionReason     String?
+  schoolId           String?
+  schoolName         String
+  schoolExternalId   String?
+  schoolEmail        String?
+  ticketNumber       String
+  requesterType      RequesterType @default(RESPONSAVEL)
+  requesterName      String
+  origin             String
+  justification      String
+  familyGroupsJson   String?
+  studentNames       String?
+  studentClassName   String?
+  requestType        RequestType
+  responsible1Name   String
+  responsible1Cpf    String
+  responsible2Name   String
+  responsible2Cpf    String
+  discountPercentage Int?
+  installmentCount   Int?
+  campaignVoucherCode String?
+  splitInstruction   String?
+  school             School?       @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([schoolId])
+  @@index([schoolName])
+  @@index([schoolExternalId])
+  @@index([ticketNumber])
+  @@index([requesterType])
+}
+
+model School {
+  id               String             @id @default(cuid())
+  externalSchoolId String?            @unique
+  schoolName       String
+  schoolEmail      String?
+  schoolStatus     String?
+  cluster          String?
+  safOwner         String?
+  city             String?
+  state            String?
+  cnpj             String?
+  tradeName        String?
+  region           String?
+  contactPhone     String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  auditLogs        AuditLog[]
+  memberships      SchoolMembership[]
+  notificationEvents NotificationEvent[]
+  voucherRequests  VoucherRequest[]
+  schoolVouchers   SchoolVoucher[]
+
+  @@index([schoolName])
+  @@index([schoolStatus])
+  @@index([cluster])
+  @@index([state])
+  @@index([cnpj])
+}
+
+model SchoolVoucher {
+  id                String        @id @default(cuid())
+  schoolId          String?
+  schoolExternalId  String?
+  schoolName        String
+  voucherType       VoucherType   @default(CAMPANHA)
+  campaignName      String
+  voucherCode       String
+  quantityAvailable Int           @default(0)
+  quantitySent      Int           @default(0)
+  sentToEmail       String?
+  sentAt            DateTime?
+  expiresAt         DateTime?
+  status            VoucherStatus @default(RASCUNHO)
+  sourceFile        String?
+  sourceSheet       String?
+  notes             String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  school            School?       @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+
+  @@index([schoolId])
+  @@index([schoolExternalId])
+  @@index([schoolName])
+  @@index([voucherType])
+  @@index([campaignName])
+  @@index([voucherCode])
+  @@index([status])
+  @@index([expiresAt])
+}
+
+model User {
+  id                String             @id @default(cuid())
+  email             String             @unique
+  name              String
+  passwordHash      String
+  role              UserRole
+  isActive          Boolean            @default(true)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  schoolAccessTokens SchoolAccessToken[]
+  schoolMemberships SchoolMembership[]
+
+  @@index([role])
+  @@index([isActive])
+}
+
+model AuditLog {
+  id          String         @id @default(cuid())
+  eventType   AuditEventType
+  entityType  AuditEntityType
+  entityId    String?
+  schoolId    String?
+  actorType   AuditActorType
+  actorUserId String?
+  actorRole   UserRole?
+  actorLabel  String
+  summary     String
+  metadataJson String?
+  createdAt   DateTime       @default(now())
+  school      School?        @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([schoolId, createdAt])
+  @@index([eventType, createdAt])
+  @@index([actorUserId, createdAt])
+}
+
+model NotificationEvent {
+  id               String                     @id @default(cuid())
+  notificationType NotificationEventType
+  entityType       AuditEntityType
+  entityId         String?
+  schoolId         String?
+  recipientChannel NotificationChannel        @default(EMAIL)
+  recipientEmail   String?
+  status           NotificationDeliveryStatus @default(PENDING)
+  summary          String
+  payloadJson      String?
+  attemptCount     Int                        @default(0)
+  lastError        String?
+  providerMessageId String?
+  createdAt        DateTime                   @default(now())
+  updatedAt        DateTime                   @updatedAt
+  processedAt      DateTime?
+  school           School?                    @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+
+  @@index([schoolId, createdAt])
+  @@index([status, createdAt])
+  @@index([notificationType, createdAt])
+  @@index([entityType, entityId])
+}
+
+model SchoolMembership {
+  id        String   @id @default(cuid())
+  userId    String
+  schoolId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  school    School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, schoolId])
+  @@index([userId])
+  @@index([schoolId])
+}
+
+model SchoolAccessToken {
+  id                String                @id @default(cuid())
+  userId            String
+  tokenHash         String                @unique
+  tokenType         SchoolAccessTokenType
+  expiresAt         DateTime
+  consumedAt        DateTime?
+  revokedAt         DateTime?
+  recipientEmail    String?
+  requestedByUserId String?
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+  user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, tokenType, createdAt])
+  @@index([userId, tokenType, expiresAt])
+  @@index([tokenType, expiresAt])
+}
+
+enum RequestStatus {
+  RECEBIDA
+  EM_ANALISE
+  PRONTA_PARA_ENVIO
+  NEGADA
+}
+
+enum RequestType {
+  DESCONTO
+  PARCELAMENTO
+  DESMEMBRAMENTO
+}
+
+enum RequesterType {
+  RESPONSAVEL
+  ESCOLA
+}
+
+enum VoucherType {
+  CAMPANHA
+  OUTRO
+}
+
+enum VoucherStatus {
+  RASCUNHO
+  ATIVO
+  ENVIADO
+  ESGOTADO
+  EXPIRADO
+  CANCELADO
+}
+
+enum UserRole {
+  SAF_ADMIN
+  SAF_OPERADOR
+  SAF_LEITURA
+  SCHOOL
+}
+
+enum AuditEntityType {
+  REQUEST
+  SCHOOL
+  VOUCHER
+  IMPORT
+}
+
+enum AuditActorType {
+  USER
+  PUBLIC
+  SYSTEM
+  SCRIPT
+}
+
+enum AuditEventType {
+  REQUEST_CREATED
+  REQUEST_STATUS_CHANGED
+  SCHOOL_CREATED
+  SCHOOL_UPDATED
+  SCHOOL_ACCESS_INVITED
+  SCHOOL_ACCESS_ACTIVATED
+  SCHOOL_PASSWORD_RESET_REQUESTED
+  SCHOOL_PASSWORD_RESET_COMPLETED
+  VOUCHER_CREATED
+  VOUCHER_UPDATED
+  VOUCHER_AVAILABLE
+  CAMPAIGN_AVAILABLE
+  IMPORT_EXECUTED
+}
+
+enum NotificationEventType {
+  REQUEST_APPROVED
+  REQUEST_REJECTED
+  VOUCHER_AVAILABLE
+  CAMPAIGN_AVAILABLE
+  SCHOOL_ACCESS_INVITATION
+  SCHOOL_PASSWORD_RESET
+}
+
+enum SchoolAccessTokenType {
+  ACTIVATION
+  PASSWORD_RESET
+}
+
+enum NotificationChannel {
+  EMAIL
+  WHATSAPP
+  IN_APP
+}
+
+enum NotificationDeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+  SUPPRESSED
+}

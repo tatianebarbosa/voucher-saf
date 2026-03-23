@@ -1,0 +1,354 @@
+﻿
+> voucher-excecao-saf@0.1.0 db:bootstrap:memberships
+> tsx --env-file=.env scripts/bootstrap-school-memberships.ts
+
+[membership-bootstrap] modo=dry-run consultores=5 usuarios_cadastrados=5 escolas_total=292 escolas_vinculadas=284 substituicoes=44 sem_correspondencia=8 ambiguas=0
+
+[membership-bootstrap] usuario x escolas vinculadas
+- Ana Paula Oliveira de Andrade <anapa.andrade@mbcentral.com.br>: 46 escola(s) [usuario_interno_inativo]
+  - Maple Bear - Alphaville SP II
+  - Maple Bear - Colatina
+  - Maple Bear - Luziânia
+  - Maple Bear Alagoinhas
+  - Maple Bear Americana
+  - Maple Bear Araruama - Pontinha
+  - Maple Bear Ariquemes
+  - Maple Bear Barueri
+  - Maple Bear Belo Horizonte - Pampulha
+  - Maple Bear Bertioga
+  - Maple Bear Betim - Angola
+  - Maple Bear Brasília - Águas Claras II
+  - Maple Bear Brusque
+  - Maple Bear Cacoal
+  - Maple Bear Campo Grande III
+  - Maple Bear Curitiba - Cabral
+  - Maple Bear Curitiba - Jardim Das Américas
+  - Maple Bear Eusébio
+  - Maple Bear Florianópolis Ilha – Sul
+  - Maple Bear Fortaleza - Aldeota
+  - Maple Bear Itupeva
+  - Maple Bear Jaboatão Dos Guararapes
+  - Maple Bear Luís Eduardo Magalhães
+  - Maple Bear Marechal Deodoro AL
+  - Maple Bear Natal - Ponta Negra
+  - Maple Bear Nova Lima - Vila dos Cristais
+  - Maple Bear Olinda
+  - Maple Bear Paraná - Curitiba Norte
+  - Maple Bear Paraná - Foz do Iguaçu
+  - Maple Bear Parauapebas
+  - Maple Bear Pato Branco
+  - Maple Bear Patos de Minas
+  - Maple Bear Porto Alegre III
+  - Maple Bear Porto Belo - Itapema
+  - Maple Bear Rio Grande
+  - Maple Bear Salvador - Patamares
+  - Maple Bear São Paulo - Butantã
+  - Maple Bear São Paulo - Center Norte
+  - Maple Bear São Paulo - Interlagos
+  - Maple Bear São Paulo - Jardim Marajoara
+  - Maple Bear São Paulo - Jd Europa
+  - Maple Bear Varginha
+  - Maple Bear Várzea Grande
+  - Maple Bear Vilhena
+  - Maple Bear Volta Redonda
+  - São Paulo - Caraguatatuba
+- Ingrid Vania Mazzei de Oliveira <ingridv.oliveira@mbcentral.com.br>: 58 escola(s) [usuario_interno_inativo]
+  - Maple Bear - Alphaville SP I
+  - Maple Bear Anápolis - City I
+  - Maple Bear Atibaia - Ressaca I
+  - Maple Bear Balneário Camboriú - Centro I
+  - Maple Bear Blumenau - Velha I
+  - Maple Bear Bragança Paulista I
+  - Maple Bear Brasilia - Águas Claras  Sul I
+  - Maple Bear Campos Dos Goytacazes - Centro I
+  - Maple Bear Cascavel - Centro I
+  - Maple Bear Cuiabá - Ribeirão Do Lipa
+  - Maple Bear Cuiabá II - Jardim Itália
+  - Maple Bear Divinópolis - Centro I
+  - Maple Bear Feira De Santana - Subaé I
+  - Maple Bear Franca - Residencial Paraíso I
+  - Maple Bear Goiânia - Marista I
+  - Maple Bear Goiânia - Marista II
+  - Maple Bear Goiânia - Marista III
+  - Maple Bear Goiânia - Plateau D'Or
+  - Maple Bear Governador Valadares - Alto Esplanada I
+  - Maple Bear Guaratinguetá - Alberto Byington I
+  - Maple Bear Indaiatuba - Jardim Esplanada I
+  - Maple Bear Itatiaia - Penedo
+  - Maple Bear Jacareí - Jardim Paraíba I
+  - Maple Bear Ji-Paraná - Centro I
+  - Maple Bear Limeira - Bairro da Graminha
+  - Maple Bear Lucas Do Rio Verde - Alvorada I
+  - Maple Bear Maceió - Jatiúca I
+  - Maple Bear Manaus - Flores I
+  - Maple Bear Manaus - Ponta Negra II
+  - Maple Bear Mogi Das Cruzes - Vila Oliveira I
+  - Maple Bear Nova Mutum - Parque Dos Ingas I
+  - Maple Bear Passo Fundo - Vila Luiza I
+  - Maple Bear Ponta Grossa - Estrela I
+  - Maple Bear Porto Velho - Olaria I
+  - Maple Bear Porto Velho - Olaria II
+  - Maple Bear Pouso Alegre - Fátima I
+  - Maple Bear Praia Grande - Canto Do Forte I
+  - Maple Bear Recife - Aflitos I
+  - Maple Bear Rio Branco - Aviário I
+  - Maple Bear Rio Claro - Centro I
+  - Maple Bear Rio De Janeiro - Méier I
+  - Maple Bear Rio De Janeiro - Tijuca I
+  - Maple Bear Rio De Janeiro - Vila Valqueire I
+  - Maple Bear São Luis - Jardim Renascença I
+  - Maple Bear São Luis - Jardim Renascença II
+  - Maple Bear São Paulo - Alto De Pinheiros I
+  - Maple Bear São Paulo - Alto De Pinheiros II
+  - Maple Bear São Paulo - Belenzinho I
+  - Maple Bear São Paulo - Casa Verde I
+  - Maple Bear São Paulo - Mooca I
+  - Maple Bear São Paulo - Mooca II
+  - Maple Bear São Paulo - Penha De França I
+  - Maple Bear São Paulo - São Miguel Paulista I
+  - Maple Bear São Paulo - Vila Madalena I
+  - Maple Bear Sinop - Recanto Suíço I
+  - Maple Bear Sorriso - Residencial Copenhagen I
+  - Maple Bear Uberlândia - Vigilato Pereira I
+  - Maple Bear Valparaíso De Goiás - Parque São Bernardo I
+- Jamille Marques da Silva <jamille.silva@mbcentral.com.br>: 44 escola(s) [usuario_interno_inativo]
+  - Maple Bear Araraquara - Vila Harmonia I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Bauru - Vila Aviação I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Belo Horizonte - Gutierrez I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Belo Horizonte - Santa Lúcia II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Camaçari - Busca Vida I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Curitiba - Batel [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Granja Viana - Cotia Jardim Lambreta I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Guarulhos - Centro [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Itapetininga - Jardim Colombo I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Macaé - Vale Encantado I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Macaé - Vale Encantado II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Mogiana - Mogi Mirim - Mogi Guaçu [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Montes Claros - Ibituruna I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Natal - Tirol I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Niterói - Santa Rosa [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Niterói - São Francisco I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Nova Lima - Alphaville Lagoa Dos Ingleses I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Osasco [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Parnamirim - Nova Parnamirim I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Porto Alegre - Iguatemi [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Porto Alegre - Zona Sul I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Rio das Ostras - Alphaville [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Rio De Janeiro - Botafogo I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Rio De Janeiro - Botafogo II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Rio Verde - Setor Central I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Salvador - Pituba I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Santo André - Campestre I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Caetano Do Sul - Santa Paula I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Carlos I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São José Dos Pinhais [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Chácara Klabin I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Jardins I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Jardins II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Morumbi Paineiras I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Morumbi Paineiras II (Clube) [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Pacaembu I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Pacaembu II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Panamby I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Panamby II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Tatuapé I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear São Paulo - Tatuapé II [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Taubaté - Jardim Das Nações I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Teresópolis - Bom Retiro I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+  - Maple Bear Uberaba - São Sebastião I [owner: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva]
+- Joao Felipe Gutierrez de Freitas <joao.freitas@mbcentral.com.br>: 71 escola(s) [usuario_interno_inativo]
+  - Maple Bear Araguari - Miranda I
+  - Maple Bear Araxá - Villagio Jardim
+  - Maple Bear Barretos - Campos Do Conde I
+  - Maple Bear Belo Horizonte - Sagrada Família I
+  - Maple Bear Campinas - Barão Geraldo I
+  - Maple Bear Campo Grande - Chácara Cachoeira II
+  - Maple Bear Campo Grande - Jardim São Bento I
+  - Maple Bear Caruaru - Universitário I
+  - Maple Bear Catanduva - Centro I
+  - Maple Bear Catanduva - Centro II
+  - Maple Bear Contagem - Três Barras I
+  - Maple Bear Contagem - Três Barras II
+  - Maple Bear Dourados - Jardim Das Palmeiras I
+  - Maple Bear Duque De Caxias - Jardim 25 De Agosto I
+  - Maple Bear Formosa - Jardim Califórnia I
+  - Maple Bear Imperatriz - Três Poderes I
+  - Maple Bear Itabira - Quatorze De Fevereiro I
+  - Maple Bear Jaguariúna - Chácara Primavera I
+  - Maple Bear Jaraguá Do Sul - Vila Baependi I
+  - Maple Bear João Pessoa - Altiplano I
+  - Maple Bear João Pessoa - Bessa I
+  - Maple Bear João Pessoa - Bessa II
+  - Maple Bear Juiz De Fora - Santa Luzia I
+  - Maple Bear Lagoa Santa - Vila Joana D'Arc I
+  - Maple Bear Maringá
+  - Maple Bear Nova Iguaçu - Centro I
+  - Maple Bear Palmas - Plano Diretor Sul I
+  - Maple Bear Passos - Centro I
+  - Maple Bear Paulínia - Morumbi I
+  - Maple Bear Petrolina - Vila Eduardo I
+  - Maple Bear Petrópolis - Itaipava I
+  - Maple Bear Piracicaba - Vila Rezende I
+  - Maple Bear Piracicaba - Vila Rezende II
+  - Maple Bear Poços De Caldas - Centro I
+  - Maple Bear Presidente Prudente - Parque Residencial Dahma I
+  - Maple Bear Primavera Do Leste
+  - Maple Bear Rio De Janeiro - Barra Da Tijuca I
+  - Maple Bear Rio De Janeiro - Barra Da Tijuca II
+  - Maple Bear Rio de Janeiro - Freguesia I
+  - Maple Bear Rio De Janeiro - Freguesia II
+  - Maple Bear Rio De Janeiro - Gávea I
+  - Maple Bear Rio De Janeiro - Ilha Do Governador I
+  - Maple Bear Rio De Janeiro - Recreio Dos Bandeirantes
+  - Maple Bear Salvador - Canela I
+  - Maple Bear Santa Bárbara D'Oeste - Jardim Mollon I
+  - Maple Bear Santa Maria - Centro I
+  - Maple Bear São Bernardo Do Campo - Centro I
+  - Maple Bear São José Dos Campos - Serimbura I
+  - Maple Bear São Leopoldo - Cristo Rei I
+  - Maple Bear São Paulo - Cantareira I
+  - Maple Bear São Paulo - Freguesia Do Ó I
+  - Maple Bear São Paulo - Granja Julieta I
+  - Maple Bear São Paulo - Granja Julieta II
+  - Maple Bear São Paulo - Jaguaré I
+  - Maple Bear São Paulo - Parque dos Príncipes I
+  - Maple Bear São Paulo - Pompéia I
+  - Maple Bear São Paulo - Pompéia II
+  - Maple Bear São Paulo - Santana I
+  - Maple Bear São Paulo - Santana II
+  - Maple Bear São Paulo - Vila Nova Conceição I
+  - Maple Bear São Paulo - Vila Olímpia
+  - Maple Bear São Roque
+  - Maple Bear Sertãozinho - Centro I
+  - Maple Bear Sorocaba - Boa Vista II
+  - Maple Bear Sorocaba - Jardim São Carlos I
+  - Maple Bear Taboão Da Serra - Parque Assunção
+  - Maple Bear Teresina - Morada Do Sol I
+  - Maple Bear Três Lagoas - Quinta Da Lagoa I
+  - Maple Bear Valinhos - Joapiranga I
+  - Maple Bear Valinhos - Joapiranga II
+  - Maple Bear Vinhedo - Bosque I
+- Tatiane Barbosa dos Santos Xavier <tatiane.xavier@mbcentral.com.br>: 65 escola(s) [usuario_interno_inativo]
+  - Maple Bear Aldeia Da Serra - Morada Dos Lagos I
+  - Maple Bear Aracaju - Atalaia I
+  - Maple Bear Aracaju - Treze De Julho I
+  - Maple Bear Aracaju - Treze De Julho II
+  - Maple Bear Araçatuba - Higienópolis I
+  - Maple Bear Araguaína - Alaska II
+  - Maple Bear Araras - Jardim Piratininga I
+  - Maple Bear Arcoverde
+  - Maple Bear Balsas
+  - Maple Bear Barreiras - Parque Da Cidade I
+  - Maple Bear Belém - Reduto I
+  - Maple Bear Bento Gonçalves
+  - Maple Bear Boa Viagem
+  - Maple Bear Boa Vista - Caçari I
+  - Maple Bear Botucatu - Vila Nogueira I
+  - Maple Bear Brasília - Asa Norte
+  - Maple Bear Brasília - Sudoeste
+  - Maple Bear Cabo Frio - Palmeiras
+  - Maple Bear Cachoeiro Do Itapemirim - São Geraldo I
+  - Maple Bear Campina Grande - Mirante I
+  - Maple Bear Campinas - Hípica I
+  - Maple Bear Caxias Do Sul - Santa Catarina I
+  - Maple Bear Chapecó - Centro I
+  - Maple Bear Conselheiro Lafaiete - Ouro Verde
+  - Maple Bear Florianópolis - Continente I
+  - Maple Bear Florianópolis - Ilha I
+  - Maple Bear Florianópolis Norte
+  - Maple Bear Fortaleza - José De Alencar I
+  - Maple Bear Goiás - Mineiros
+  - Maple Bear Gramado - Planalto I
+  - Maple Bear Guarapari - Muquiçaba
+  - Maple Bear Guarapuava
+  - Maple Bear Guarujá - Enseada I
+  - Maple Bear Guarujá - Enseada II
+  - Maple Bear Hortolândia - Parque Gabriel I
+  - Maple Bear Ipatinga - Cidade Nobre
+  - Maple Bear Itatiba - Residencial Fazenda Rosa I
+  - Maple Bear Itu
+  - Maple Bear Itumbiara - Centro
+  - Maple Bear Joinville - Atiradores I
+  - Maple Bear Jundiaí - Jardim Santa Teresa I
+  - Maple Bear Lavras - Cidade Da Serra I
+  - Maple Bear Linhares - Três Barras I
+  - Maple Bear Londrina - Nikko I
+  - Maple Bear Macapá - Centro I
+  - Maple Bear Marabá - Belo Horizonte I
+  - Maple Bear Marília - Parque Das Esmeraldas I
+  - Maple Bear Mauá - Bocaina I
+  - Maple Bear Mogiana - Residencial Do Bosque I
+  - Maple Bear Mossoró
+  - Maple Bear Paracatu - Centro I
+  - Maple Bear Pindamonhangaba
+  - Maple Bear Ribeirão Preto - Bonfim Paulista I
+  - Maple Bear Rio de Janeiro - Campo Grande - Itaguaí
+  - Maple Bear Rondonópolis - Parque Sagrada Familia I
+  - Maple Bear Santos - Campo Grande
+  - Maple Bear São José Do Rio Preto - Jardim Francisco Fernandes I
+  - Maple Bear São José Do Rio Preto - Redentora II
+  - Maple Bear São Paulo - Parque São Jorge
+  - Maple Bear São Paulo - Vila Mascote I
+  - Maple Bear São Vicente
+  - Maple Bear Sete Lagoas
+  - Maple Bear Teixeira De Freitas
+  - Maple Bear Vila Velha - Praia Da Costa I
+  - Maple Bear Vitória - Bento Ferreira I
+
+[membership-bootstrap] registros substituidos de Rafhael para Jamille
+- Maple Bear Araraquara - Vila Harmonia I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Bauru - Vila Aviação I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Belo Horizonte - Gutierrez I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Belo Horizonte - Santa Lúcia II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Camaçari - Busca Vida I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Curitiba - Batel: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Granja Viana - Cotia Jardim Lambreta I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Guarulhos - Centro: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Itapetininga - Jardim Colombo I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Macaé - Vale Encantado I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Macaé - Vale Encantado II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Mogiana - Mogi Mirim - Mogi Guaçu: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Montes Claros - Ibituruna I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Natal - Tirol I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Niterói - Santa Rosa: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Niterói - São Francisco I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Nova Lima - Alphaville Lagoa Dos Ingleses I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Osasco: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Parnamirim - Nova Parnamirim I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Porto Alegre - Iguatemi: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Porto Alegre - Zona Sul I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Rio das Ostras - Alphaville: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Rio De Janeiro - Botafogo I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Rio De Janeiro - Botafogo II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Rio Verde - Setor Central I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Salvador - Pituba I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Santo André - Campestre I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Caetano Do Sul - Santa Paula I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Carlos I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São José Dos Pinhais: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Chácara Klabin I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Jardins I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Jardins II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Morumbi Paineiras I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Morumbi Paineiras II (Clube): RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Pacaembu I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Pacaembu II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Panamby I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Panamby II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Tatuapé I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear São Paulo - Tatuapé II: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Taubaté - Jardim Das Nações I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Teresópolis - Bom Retiro I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+- Maple Bear Uberaba - São Sebastião I: RAFHAEL NAZEAZENO PEREIRA -> Jamille Marques da Silva <jamille.silva@mbcentral.com.br>
+
+[membership-bootstrap] escolas sem correspondencia
+- Maple Bear Aldeia Da Serra - Morada Dos Lagos II: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Arujá: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Assis - Jardim Morumbi I: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Boituva: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Gurupi: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Jaú: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Sinop - Recanto Suíço II: Nao informado (Carteira SAF nao preenchida.)
+- Maple Bear Sobral: Nao informado (Carteira SAF nao preenchida.)
+
+[membership-bootstrap] nenhuma alteracao foi gravada. Rode novamente com --apply para aplicar.

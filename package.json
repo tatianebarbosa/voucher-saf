@@ -1,26 +1,55 @@
 {
-  "name": "voucher-saf-app",
+  "name": "voucher-excecao-saf",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "notifications:process": "tsx --env-file=.env scripts/process-notifications.ts",
+    "db:import:schools": "tsx --env-file=.env scripts/import-schools.ts",
+    "db:import:vouchers": "tsx --env-file=.env scripts/import-vouchers.ts",
+    "db:bootstrap:memberships": "tsx --env-file=.env scripts/bootstrap-school-memberships.ts",
+    "db:sync:internal-users": "tsx --env-file=.env scripts/sync-internal-saf-users.ts",
+    "db:create:internal-user": "tsx --env-file=.env scripts/create-internal-user.ts",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@prisma/client": "^6.17.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.577.0",
     "next": "16.1.7",
+    "next-auth": "^5.0.0-beta.30",
+    "nodemailer": "^7.0.13",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.71.2",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.5.0",
+    "xlsx": "^0.18.5",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^7.0.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
+    "prisma": "^6.17.1",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }
