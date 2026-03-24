@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
+import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
   Building2,
@@ -11,9 +10,9 @@ import {
   LibraryBig,
   ShieldCheck,
 } from "lucide-react";
+import { signIn } from "next-auth/react";
 
 import { Input } from "@/components/ui/input";
-import { authenticate } from "@/lib/server/auth-actions";
 
 interface LoginHighlight {
   icon: typeof ShieldCheck;
@@ -41,9 +40,7 @@ const highlights: LoginHighlight[] = [
   },
 ];
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
+function SubmitButton({ pending }: { pending: boolean }) {
   return (
     <button
       type="submit"
@@ -65,6 +62,15 @@ function SubmitButton() {
   );
 }
 
+function getSignInErrorMessage(error?: string) {
+  switch (error) {
+    case "CredentialsSignin":
+      return "Credenciais invalidas. Verifique o e-mail e a senha informados.";
+    default:
+      return "Não foi possível autenticar. Tente novamente.";
+  }
+}
+
 export function LoginForm({
   callbackUrl,
   noticeMessage,
@@ -72,7 +78,45 @@ export function LoginForm({
   callbackUrl: string;
   noticeMessage?: string;
 }) {
-  const [errorMessage, formAction] = useActionState(authenticate, undefined);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined,
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(undefined);
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email")?.toString() ?? "";
+    const password = formData.get("password")?.toString() ?? "";
+
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        redirectTo: callbackUrl,
+      });
+
+      if (!result?.ok || result.error) {
+        setErrorMessage(getSignInErrorMessage(result?.error));
+        return;
+      }
+
+      window.location.assign(result.url ?? callbackUrl);
+    } catch {
+      setErrorMessage("Não foi possível autenticar. Tente novamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <section className="relative overflow-hidden rounded-[10px] border border-white/70 bg-[linear-gradient(180deg,#fcfcfd_0%,#f4f6fb_100%)] px-5 py-6 shadow-[0_30px_64px_-54px_rgba(22,39,68,0.34)] md:px-8 md:py-8 xl:px-10 xl:py-10">
@@ -165,7 +209,7 @@ export function LoginForm({
               </div>
             ) : null}
 
-            <form action={formAction} className="mt-6 space-y-4">
+            <form onSubmit={(event) => void handleSubmit(event)} className="mt-6 space-y-4">
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
 
               <label className="block space-y-2.5">
@@ -202,7 +246,7 @@ export function LoginForm({
                 </div>
               ) : null}
 
-              <SubmitButton />
+              <SubmitButton pending={isSubmitting} />
             </form>
 
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[var(--color-muted-foreground)]">

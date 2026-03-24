@@ -119,14 +119,6 @@ export default function RequestDetailsPage() {
           >
             Voltar ao painel
           </Link>
-          {canUpdateStatus ? (
-            <Link
-              href="/solicitacao"
-              className="inline-flex items-center rounded-[8px] bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[var(--color-primary-strong)]"
-            >
-              Nova solicitação
-            </Link>
-          ) : null}
         </div>
       </div>
 

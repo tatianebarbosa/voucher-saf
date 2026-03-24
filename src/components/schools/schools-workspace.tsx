@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Building2, RefreshCcw, Search, ShieldCheck } from "lucide-react";
+import { Building2, RefreshCcw, Search } from "lucide-react";
 
 import type { ApiErrorDetails, ApiResponse } from "@/types/api";
 import type { School } from "@/types/school";
@@ -13,7 +13,11 @@ import {
   type SchoolPayload,
 } from "@/lib/school-schema";
 import { SchoolForm } from "@/components/schools/school-form";
-import { SchoolTable } from "@/components/schools/school-table";
+import {
+  SchoolTable,
+  type SchoolTableFilterField,
+  type SchoolTableFilters,
+} from "@/components/schools/school-table";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -145,6 +149,10 @@ export function SchoolsWorkspace() {
   const [errorCode, setErrorCode] = useState<string | null>(null);
   const [nameQuery, setNameQuery] = useState("");
   const [externalIdQuery, setExternalIdQuery] = useState("");
+  const [emailQuery, setEmailQuery] = useState("");
+  const [statusQuery, setStatusQuery] = useState("");
+  const [clusterQuery, setClusterQuery] = useState("");
+  const [safOwnerQuery, setSafOwnerQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [formMode, setFormMode] = useState<FormMode>(null);
   const [selectedSchoolId, setSelectedSchoolId] = useState<string | null>(null);
@@ -208,7 +216,14 @@ export function SchoolsWorkspace() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [nameQuery, externalIdQuery]);
+  }, [
+    clusterQuery,
+    emailQuery,
+    externalIdQuery,
+    nameQuery,
+    safOwnerQuery,
+    statusQuery,
+  ]);
 
   useEffect(() => {
     if (
@@ -235,8 +250,19 @@ export function SchoolsWorkspace() {
   const normalizedExternalIdQuery = externalIdQuery
     .trim()
     .toLocaleLowerCase("pt-BR");
+  const normalizedEmailQuery = emailQuery.trim().toLocaleLowerCase("pt-BR");
+  const normalizedStatusQuery = statusQuery.trim().toLocaleLowerCase("pt-BR");
+  const normalizedClusterQuery = clusterQuery.trim().toLocaleLowerCase("pt-BR");
+  const normalizedSafOwnerQuery = safOwnerQuery
+    .trim()
+    .toLocaleLowerCase("pt-BR");
   const hasActiveFilters =
-    normalizedNameQuery !== "" || normalizedExternalIdQuery !== "";
+    normalizedNameQuery !== "" ||
+    normalizedExternalIdQuery !== "" ||
+    normalizedEmailQuery !== "" ||
+    normalizedStatusQuery !== "" ||
+    normalizedClusterQuery !== "" ||
+    normalizedSafOwnerQuery !== "";
   const filteredSchools = schools.filter((school) => {
     const matchesName =
       normalizedNameQuery === "" ||
@@ -246,8 +272,35 @@ export function SchoolsWorkspace() {
       (school.externalSchoolId ?? "")
         .toLocaleLowerCase("pt-BR")
         .includes(normalizedExternalIdQuery);
+    const matchesEmail =
+      normalizedEmailQuery === "" ||
+      (school.schoolEmail ?? "")
+        .toLocaleLowerCase("pt-BR")
+        .includes(normalizedEmailQuery);
+    const matchesStatus =
+      normalizedStatusQuery === "" ||
+      (school.schoolStatus ?? "")
+        .toLocaleLowerCase("pt-BR")
+        .includes(normalizedStatusQuery);
+    const matchesCluster =
+      normalizedClusterQuery === "" ||
+      (school.cluster ?? "")
+        .toLocaleLowerCase("pt-BR")
+        .includes(normalizedClusterQuery);
+    const matchesSafOwner =
+      normalizedSafOwnerQuery === "" ||
+      (school.safOwner ?? "")
+        .toLocaleLowerCase("pt-BR")
+        .includes(normalizedSafOwnerQuery);
 
-    return matchesName && matchesExternalId;
+    return (
+      matchesName &&
+      matchesExternalId &&
+      matchesEmail &&
+      matchesStatus &&
+      matchesCluster &&
+      matchesSafOwner
+    );
   });
   const totalPages = Math.max(1, Math.ceil(filteredSchools.length / PAGE_SIZE));
   const safePage = Math.min(currentPage, totalPages);
@@ -283,6 +336,10 @@ export function SchoolsWorkspace() {
     setFeedbackMessage("Escola cadastrada com sucesso.");
     setNameQuery("");
     setExternalIdQuery("");
+    setEmailQuery("");
+    setStatusQuery("");
+    setClusterQuery("");
+    setSafOwnerQuery("");
     setCurrentPage(1);
     setFormMode("create");
     setSelectedSchoolId(null);
@@ -357,8 +414,47 @@ export function SchoolsWorkspace() {
   function handleClearFilters() {
     setNameQuery("");
     setExternalIdQuery("");
+    setEmailQuery("");
+    setStatusQuery("");
+    setClusterQuery("");
+    setSafOwnerQuery("");
     setCurrentPage(1);
   }
+
+  function handleTableFilterChange(
+    field: SchoolTableFilterField,
+    value: string,
+  ) {
+    switch (field) {
+      case "externalSchoolId":
+        setExternalIdQuery(value);
+        return;
+      case "schoolName":
+        setNameQuery(value);
+        return;
+      case "schoolEmail":
+        setEmailQuery(value);
+        return;
+      case "schoolStatus":
+        setStatusQuery(value);
+        return;
+      case "cluster":
+        setClusterQuery(value);
+        return;
+      case "safOwner":
+        setSafOwnerQuery(value);
+        return;
+    }
+  }
+
+  const tableFilters: SchoolTableFilters = {
+    externalSchoolId: externalIdQuery,
+    schoolName: nameQuery,
+    schoolEmail: emailQuery,
+    schoolStatus: statusQuery,
+    cluster: clusterQuery,
+    safOwner: safOwnerQuery,
+  };
 
   if (!isReady) {
     return (
@@ -499,7 +595,13 @@ export function SchoolsWorkspace() {
         </Card>
       ) : null}
 
-      <section className="grid gap-6 xl:grid-cols-[1.45fr_0.85fr]">
+      <section
+        className={
+          formMode
+            ? "grid gap-4 xl:grid-cols-[minmax(0,2.15fr)_minmax(20rem,0.75fr)]"
+            : "space-y-6"
+        }
+      >
         <div className="space-y-6">
           <Card>
             <CardContent className="space-y-6">
@@ -611,8 +713,12 @@ export function SchoolsWorkspace() {
             <>
               <SchoolTable
                 canEdit={canEditSchool}
+                filters={tableFilters}
+                hasActiveFilters={hasActiveFilters}
+                onClearFilters={handleClearFilters}
                 schools={paginatedSchools}
                 onEdit={handleOpenEditForm}
+                onFilterChange={handleTableFilterChange}
               />
 
               {totalPages > 1 ? (
@@ -647,65 +753,19 @@ export function SchoolsWorkspace() {
           )}
         </div>
 
-        <div className="space-y-4">
-          {feedbackMessage ? (
-            <Card className="border-emerald-200 bg-[linear-gradient(135deg,rgba(236,253,245,0.96),rgba(220,252,231,0.92))]">
-              <CardContent className="flex items-start gap-3 py-5">
-                <span className="mt-1 inline-flex size-10 items-center justify-center rounded-[8px] bg-emerald-600 text-white shadow-lg shadow-emerald-900/20">
-                  <ShieldCheck className="size-5" />
-                </span>
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-                    Operação concluida
-                  </p>
-                  <p className="text-sm leading-7 text-emerald-950">
-                    {feedbackMessage}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ) : null}
-
-          {formMode ? (
+        {formMode ? (
+          <div className="space-y-4">
             <SchoolForm
               key={formMode === "edit" ? selectedSchool?.id ?? "edit" : "create"}
               canEditAdminFields={canEditAdminFields}
               mode={formMode}
               initialValues={toSchoolFormValues(selectedSchool)}
+              feedbackMessage={feedbackMessage}
               onSubmitForm={handleSubmitSchool}
               onCancel={handleCloseForm}
             />
-          ) : (
-            <Card className="sticky top-28">
-              <CardContent className="space-y-4">
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-primary)]">
-                  {canCreateSchool || canEditSchool ? "Ação rápida" : "Perfil atual"}
-                </p>
-                <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-foreground)]">
-                  {canCreateSchool
-                    ? "Cadastre ou edite sem sair da lista"
-                    : canEditSchool
-                      ? "Edite escolas existentes pela lista"
-                      : "Consulta da base interna"}
-                </h2>
-                <p className="text-sm leading-7 text-[var(--color-muted-foreground)]">
-                  {canCreateSchool
-                    ? "Clique em \"Adicionar nova escola\" para um cadastro manual ou use \"Editar\" em qualquer linha da tabela para ajustar os dados principais."
-                    : canEditSchool
-                      ? "Use \"Editar\" nas linhas da tabela para ajustar campos operacionais. Campos administrativos continuam restritos ao perfil admin."
-                      : "Seu perfil está configurado para consulta. A tabela e o detalhe da escola continuam disponíveis, sem ações de cadastro ou edição."}
-                </p>
-                {canCreateSchool ? (
-                  <div className="flex flex-wrap gap-3">
-                    <Button type="button" onClick={handleOpenCreateForm}>
-                      Adicionar nova escola
-                    </Button>
-                  </div>
-                ) : null}
-              </CardContent>
-            </Card>
-          )}
-        </div>
+          </div>
+        ) : null}
       </section>
     </div>
   );

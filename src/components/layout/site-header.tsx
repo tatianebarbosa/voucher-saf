@@ -19,7 +19,6 @@ import { cn } from "@/lib/utils";
 
 interface SiteHeaderProps {
   isAuthenticated: boolean;
-  userEmail?: string | null;
   userRole?: UserRole | null;
   userRoleLabel?: string | null;
 }
@@ -131,7 +130,6 @@ function HeaderMenuItem({
 
 export function SiteHeader({
   isAuthenticated,
-  userEmail,
   userRole,
   userRoleLabel,
 }: SiteHeaderProps) {
@@ -352,6 +350,7 @@ export function SiteHeader({
                     onClick={() => toggleDropdown("account")}
                     className={cn(
                       triggerClassName,
+                      "justify-start",
                       isDropdownOpen("account")
                         ? "text-[var(--color-primary)]"
                         : "text-[var(--color-foreground)] hover:text-[var(--color-primary)]",
@@ -359,25 +358,16 @@ export function SiteHeader({
                     aria-expanded={isDropdownOpen("account")}
                     aria-haspopup="menu"
                   >
-                    <span className="inline-flex min-w-0 items-center gap-3">
+                    <span className="inline-flex min-w-0 flex-1 items-center gap-3">
+                      <span className="min-w-0">
+                        <span className="block max-w-[180px] truncate text-[13px] text-[var(--color-foreground)]">
+                          {userRoleLabel || "Conta ativa"}
+                        </span>
+                      </span>
                       <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] text-white">
                         <UserCircle2 className="size-4" />
                       </span>
-                      <span className="min-w-0">
-                        <span className="block text-[10px] uppercase tracking-[0.14em] text-[var(--color-muted-foreground)]">
-                          {userRoleLabel || "Conta"}
-                        </span>
-                        <span className="block max-w-[180px] truncate text-[13px] text-[var(--color-foreground)]">
-                          {userEmail || "Usuario autenticado"}
-                        </span>
-                      </span>
                     </span>
-                    <ChevronDown
-                      className={cn(
-                        "size-4 transition-transform",
-                        isDropdownOpen("account") ? "rotate-180" : "",
-                      )}
-                    />
                   </button>
 
                   <div
@@ -388,14 +378,8 @@ export function SiteHeader({
                     )}
                   >
                     <div className="rounded-[var(--radius-md)] bg-[var(--color-surface-muted)] px-3.5 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]">
-                        Conta ativa
-                      </p>
-                      <p className="mt-2 break-all text-sm font-medium text-[var(--color-foreground)]">
-                        {userEmail || "Usuario autenticado"}
-                      </p>
                       {userRoleLabel ? (
-                        <div className="mt-3 inline-flex rounded-[var(--radius-md)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]">
+                        <div className="inline-flex rounded-[var(--radius-md)] bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]">
                           {userRoleLabel}
                         </div>
                       ) : null}

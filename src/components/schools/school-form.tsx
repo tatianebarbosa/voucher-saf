@@ -24,6 +24,7 @@ interface SchoolFormProps {
   onSubmitForm: (values: SchoolPayload) => Promise<void>;
   onCancel: () => void;
   canEditAdminFields?: boolean;
+  feedbackMessage?: string | null;
 }
 
 function FieldShell({
@@ -84,6 +85,7 @@ export function SchoolForm({
   onSubmitForm,
   onCancel,
   canEditAdminFields = true,
+  feedbackMessage = null,
 }: SchoolFormProps) {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const {
@@ -161,8 +163,14 @@ export function SchoolForm({
   }
 
   return (
-    <Card className="sticky top-28">
+    <Card className="sticky top-28 w-full max-w-[34rem] xl:max-w-[28rem]">
       <CardContent className="space-y-6">
+        {feedbackMessage ? (
+          <div className="rounded-[8px] border border-emerald-200 bg-[linear-gradient(135deg,rgba(236,253,245,0.96),rgba(220,252,231,0.92))] px-4 py-3 text-sm text-emerald-950">
+            {feedbackMessage}
+          </div>
+        ) : null}
+
         <div className="space-y-3">
           <span className="inline-flex size-12 items-center justify-center rounded-[8px] border border-red-100 bg-red-50 text-[var(--color-primary)]">
             {isCreateMode ? (

@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { CopyPlus, ExternalLink, RefreshCcw } from "lucide-react";
+import { CopyPlus, RefreshCcw } from "lucide-react";
 
 import { RequestStatusBadge } from "@/components/requests/request-badges";
 import { RequestStatusEditor } from "@/components/requests/request-status-editor";
@@ -70,7 +69,7 @@ export function RequestQuickActions({ request }: { request: VoucherRequest }) {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-[0.9fr_1.1fr]">
+        <div>
           {canUpdateStatus ? (
             <div className="space-y-3 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4">
               <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-foreground)]">
@@ -105,28 +104,6 @@ export function RequestQuickActions({ request }: { request: VoucherRequest }) {
             </div>
           )}
 
-          <div className="space-y-3 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4">
-            <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-foreground)]">
-              <ExternalLink className="size-4 text-[var(--color-primary)]" />
-              Navegacao rápida
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/painel-saf"
-                className="inline-flex items-center rounded-[var(--radius-md)] border border-[var(--color-border-strong)] px-4 py-2 text-sm font-semibold text-[var(--color-primary)] transition hover:bg-red-50"
-              >
-                Voltar ao painel
-              </Link>
-              {canUpdateStatus ? (
-                <Link
-                  href="/solicitacao"
-                  className="inline-flex items-center rounded-[var(--radius-md)] bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[var(--color-primary-strong)]"
-                >
-                  Nova solicitação
-                </Link>
-              ) : null}
-            </div>
-          </div>
         </div>
 
         <div className="space-y-3">

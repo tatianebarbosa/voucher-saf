@@ -12,8 +12,7 @@ interface AppShellProps {
 
 export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
-  const { isAuthenticated, userEmail, userRole, userRoleLabel } =
-    useAuthSession();
+  const { isAuthenticated, userRole, userRoleLabel } = useAuthSession();
   const isLoginRoute = pathname.startsWith("/login");
   const contentWrapperClassName = cn(
     "[--page-gutter:1.5rem] sm:[--page-gutter:2rem] md:[--page-gutter:4rem] lg:[--page-gutter:6rem] xl:[--page-gutter:8rem] 2xl:[--page-gutter:10rem] px-[var(--page-gutter)]",
@@ -25,7 +24,6 @@ export function AppShell({ children }: AppShellProps) {
       {!isLoginRoute ? (
         <SiteHeader
           isAuthenticated={isAuthenticated}
-          userEmail={userEmail}
           userRole={userRole}
           userRoleLabel={userRoleLabel}
         />
@@ -35,7 +33,9 @@ export function AppShell({ children }: AppShellProps) {
         <main
           className={cn(
             "mx-auto max-w-[1320px]",
-            isLoginRoute ? "min-h-screen" : "min-h-[calc(100vh-96px)]",
+            isLoginRoute
+              ? "flex min-h-[calc(100svh-2rem)] flex-col justify-center md:min-h-[calc(100svh-3rem)]"
+              : "min-h-[calc(100vh-96px)]",
           )}
         >
           {children}

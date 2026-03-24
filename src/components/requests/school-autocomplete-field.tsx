@@ -59,7 +59,7 @@ export function SchoolAutocompleteField({
 
       try {
         const response = await fetch(
-          `/api/public/schoolsóquery=${encodeURIComponent(normalizedQuery)}`,
+          `/api/public/schools?query=${encodeURIComponent(normalizedQuery)}`,
           {
             cache: "no-store",
             signal: controller.signal,
@@ -98,9 +98,6 @@ export function SchoolAutocompleteField({
     (isLoading || requestError !== null || value.trim().length >= 2);
 
   const helperParts = [
-    selectedSchool?.schoolEmail
-      ? `E-mail cadastrado: ${selectedSchool.schoolEmail}`
-      : null,
     selectedSchool?.city || selectedSchool?.state
       ? `Localização: ${selectedSchool.city ?? "Cidade"}${
           selectedSchool?.state ? ` - ${selectedSchool.state}` : ""
@@ -179,12 +176,6 @@ export function SchoolAutocompleteField({
                 >
                   <span className="font-semibold text-[var(--color-foreground)]">
                     {school.schoolName}
-                  </span>
-                  <span className="text-xs text-[var(--color-muted-foreground)]">
-                    {school.schoolEmail ||
-                      (school.city && school.state
-                        ? `${school.city} - ${school.state}`
-                        : "Cadastro institucional disponível")}
                   </span>
                 </button>
               ))}

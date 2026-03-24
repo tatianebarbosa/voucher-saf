@@ -18,6 +18,7 @@ import {
   Send,
   Trash2,
   Users,
+  X,
 } from "lucide-react";
 import {
   Controller,
@@ -125,6 +126,182 @@ function SummaryItem({
       <p className="whitespace-pre-line text-sm leading-6 text-emerald-950">
         {value}
       </p>
+    </div>
+  );
+}
+
+function RequestSuccessModal({
+  request,
+  requestFamilyGroups,
+  onClose,
+}: {
+  request: VoucherRequest;
+  requestFamilyGroups: ReturnType<typeof getRequestFamilyGroups>;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-[rgba(15,23,42,0.55)] p-4 backdrop-blur-[2px] sm:p-6"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div className="mx-auto flex max-h-[calc(100svh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-[var(--radius-xl)] border border-emerald-200 bg-[linear-gradient(135deg,rgba(236,253,245,0.98),rgba(220,252,231,0.95))] shadow-[0_40px_120px_-48px_rgba(15,23,42,0.45)] sm:max-h-[calc(100svh-3rem)]">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="request-success-title"
+          aria-describedby="request-success-description"
+          className="flex min-h-0 flex-1 flex-col"
+        >
+          <div className="flex items-start justify-between gap-4 border-b border-emerald-200/80 px-5 py-5 md:px-6">
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 flex size-11 items-center justify-center rounded-[var(--radius-md)] bg-emerald-600 text-white shadow-lg shadow-emerald-900/20">
+                <CheckCircle2 className="size-5" />
+              </span>
+              <div className="space-y-2">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                  Solicitação registrada
+                </p>
+                <h3
+                  id="request-success-title"
+                  className="font-heading text-2xl font-bold tracking-tight text-emerald-950"
+                >
+                  Envio concluído com sucesso
+                </h3>
+                <p
+                  id="request-success-description"
+                  className="max-w-3xl text-sm leading-6 text-emerald-900/80"
+                >
+                  A solicitação foi salva no sistema e já está disponível para
+                  consulta no painel SAF e na tela de detalhe.
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              aria-label="Fechar confirmação"
+              className="inline-flex size-10 items-center justify-center rounded-[var(--radius-md)] border border-emerald-200 bg-white/80 text-emerald-900 transition hover:bg-white"
+              onClick={onClose}
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 md:px-6">
+            <div className="grid gap-3 md:grid-cols-2">
+              <SummaryItem label="Escola" value={request.schoolName} />
+              <SummaryItem
+                label="Código do atendimento"
+                value={request.ticketNumber}
+              />
+              <SummaryItem
+                label="Famílias"
+                value={
+                  request.requestType === "desmembramento"
+                    ? "Não se aplica"
+                    : `${countRequestFamilies(requestFamilyGroups)} família(s) / ${countRequestStudents(requestFamilyGroups)} aluno(s)`
+                }
+              />
+              <SummaryItem
+                label="Aluno(s)"
+                value={
+                  request.requestType === "desmembramento"
+                    ? "Não se aplica"
+                    : requestFamilyGroups.length > 0
+                      ? buildStudentNamesSummary(requestFamilyGroups)
+                      : request.studentNames || "Não informado"
+                }
+              />
+              <SummaryItem
+                label="Turma(s)"
+                value={
+                  request.requestType === "desmembramento"
+                    ? "Não se aplica"
+                    : requestFamilyGroups.length > 0
+                      ? buildStudentClassesSummary(requestFamilyGroups)
+                      : request.studentClassName || "Não informado"
+                }
+              />
+              <SummaryItem
+                label="Tipo"
+                value={formatRequestType(request.requestType)}
+              />
+              <SummaryItem
+                label="Condição"
+                value={formatCondition(request)}
+              />
+              {request.requestType === "desmembramento" ? (
+                <>
+                  <SummaryItem
+                    label="Código do voucher"
+                    value={request.campaignVoucherCode || "Não informado"}
+                  />
+                  <SummaryItem
+                    label="Como deseja desmembrar"
+                    value={request.splitInstruction || "Não informado"}
+                  />
+                </>
+              ) : null}
+              <SummaryItem
+                label="Tipo de solicitante"
+                value={formatRequesterType(request.requesterType)}
+              />
+              <SummaryItem
+                label="Validade automática"
+                value={request.generatedTexts.validityLabel}
+              />
+              <SummaryItem
+                label={formatRequesterSummaryLabel(request.requesterType)}
+                value={request.requesterName}
+              />
+              <SummaryItem
+                label="Responsáveis"
+                value={
+                  request.requestType === "desmembramento"
+                    ? "Não se aplica"
+                    : requestFamilyGroups.length > 0
+                      ? buildFamilyResponsiblesSummary(requestFamilyGroups)
+                      : `${request.responsible1Name} e ${request.responsible2Name}`
+                }
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 border-t border-emerald-200/80 bg-white/55 px-5 py-4 md:flex-row md:items-center md:justify-between md:px-6">
+            <p className="text-sm text-emerald-900/80">
+              Confira os dados da solicitação recém-registrada e feche quando
+              terminar.
+            </p>
+
+            <Button variant="secondary" onClick={onClose}>
+              Fechar
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -453,6 +630,7 @@ export function RequestForm({
   sidebarContent?: ReactNode;
 }) {
   const { addRequest, isReady } = useRequests();
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [lastCreatedRequest, setLastCreatedRequest] =
     useState<VoucherRequest | null>(null);
   const [selectedSchoolOption, setSelectedSchoolOption] =
@@ -548,10 +726,12 @@ export function RequestForm({
 
   async function onSubmit(values: RequestFormData) {
     setSubmitError(null);
+    setIsSuccessModalOpen(false);
 
     try {
       const createdRequest = await addRequest(values);
       setLastCreatedRequest(createdRequest);
+      setIsSuccessModalOpen(true);
       setSelectedSchoolOption(null);
       reset(requestFormDefaultValues);
     } catch (error) {
@@ -576,7 +756,7 @@ export function RequestForm({
               Registro da solicitação
             </p>
             <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-foreground)]">
-              Dados do chamado
+              Dados da solicitação
             </h2>
             <p className="max-w-2xl text-sm leading-6 text-[var(--color-muted-foreground)]">
               Preencha os dados abaixo com as informações da pessoa que abriu o
@@ -584,110 +764,6 @@ export function RequestForm({
               automaticamente os textos que serão usados pelo time SAF.
             </p>
           </div>
-
-          {lastCreatedRequest ? (
-            <div className="space-y-4 rounded-[var(--radius-lg)] border border-emerald-200 bg-[linear-gradient(135deg,rgba(236,253,245,0.96),rgba(220,252,231,0.92))] p-4">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 flex size-9 items-center justify-center rounded-[var(--radius-md)] bg-emerald-600 text-white shadow-lg shadow-emerald-900/20">
-                  <CheckCircle2 className="size-4" />
-                </span>
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">
-                    Solicitação registrada
-                  </p>
-                  <h3 className="font-heading text-xl font-bold tracking-tight text-emerald-950">
-                    Envio concluído com sucesso
-                  </h3>
-                  <p className="text-sm leading-6 text-emerald-900/80">
-                    A solicitação foi salva no sistema e já está disponível para
-                    consulta no painel SAF e na tela de detalhe.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid gap-3 md:grid-cols-2">
-                <SummaryItem label="Escola" value={lastCreatedRequest.schoolName} />
-                <SummaryItem
-                  label="Código do atendimento"
-                  value={lastCreatedRequest.ticketNumber}
-                />
-                <SummaryItem
-                  label="Famílias"
-                  value={
-                    lastCreatedRequest.requestType === "desmembramento"
-                      ? "Não se aplica"
-                      : `${countRequestFamilies(lastCreatedRequestFamilyGroups)} família(s) / ${countRequestStudents(lastCreatedRequestFamilyGroups)} aluno(s)`
-                  }
-                />
-                <SummaryItem
-                  label="Aluno(s)"
-                  value={
-                    lastCreatedRequest.requestType === "desmembramento"
-                      ? "Não se aplica"
-                      : lastCreatedRequestFamilyGroups.length > 0
-                      ? buildStudentNamesSummary(lastCreatedRequestFamilyGroups)
-                      : lastCreatedRequest.studentNames || "Não informado"
-                  }
-                />
-                <SummaryItem
-                  label="Turma(s)"
-                  value={
-                    lastCreatedRequest.requestType === "desmembramento"
-                      ? "Não se aplica"
-                      : lastCreatedRequestFamilyGroups.length > 0
-                      ? buildStudentClassesSummary(lastCreatedRequestFamilyGroups)
-                      : lastCreatedRequest.studentClassName || "Não informado"
-                  }
-                />
-                <SummaryItem
-                  label="Tipo"
-                  value={formatRequestType(lastCreatedRequest.requestType)}
-                />
-                <SummaryItem
-                  label="Condição"
-                  value={formatCondition(lastCreatedRequest)}
-                />
-                {lastCreatedRequest.requestType === "desmembramento" ? (
-                  <>
-                    <SummaryItem
-                      label="Código do voucher"
-                      value={
-                        lastCreatedRequest.campaignVoucherCode || "Não informado"
-                      }
-                    />
-                    <SummaryItem
-                      label="Como deseja desmembrar"
-                      value={lastCreatedRequest.splitInstruction || "Não informado"}
-                    />
-                  </>
-                ) : null}
-                <SummaryItem
-                  label="Tipo de solicitante"
-                  value={formatRequesterType(lastCreatedRequest.requesterType)}
-                />
-                <SummaryItem
-                  label="Validade automática"
-                  value={lastCreatedRequest.generatedTexts.validityLabel}
-                />
-                <SummaryItem
-                  label={formatRequesterSummaryLabel(lastCreatedRequest.requesterType)}
-                  value={lastCreatedRequest.requesterName}
-                />
-                <SummaryItem
-                  label="Responsáveis"
-                  value={
-                    lastCreatedRequest.requestType === "desmembramento"
-                      ? "Não se aplica"
-                      : lastCreatedRequestFamilyGroups.length > 0
-                      ? buildFamilyResponsiblesSummary(
-                          lastCreatedRequestFamilyGroups,
-                        )
-                      : `${lastCreatedRequest.responsible1Name} e ${lastCreatedRequest.responsible2Name}`
-                  }
-                />
-              </div>
-            </div>
-          ) : null}
 
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <input type="hidden" {...register("schoolId")} />
@@ -1107,6 +1183,14 @@ export function RequestForm({
           </CardContent>
         </Card>
       </div>
+
+      {lastCreatedRequest && isSuccessModalOpen ? (
+        <RequestSuccessModal
+          request={lastCreatedRequest}
+          requestFamilyGroups={lastCreatedRequestFamilyGroups}
+          onClose={() => setIsSuccessModalOpen(false)}
+        />
+      ) : null}
     </div>
   );
 }
